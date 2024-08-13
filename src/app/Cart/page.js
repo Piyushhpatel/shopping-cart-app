@@ -4,10 +4,12 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useCart } from "@/Context/AppContext";
 import CartItem from "@/components/CartItem";
+import { useRouter } from "next/navigation";
 
 const Cart = () => {
-  const { cart } = useCart();
+  const { cart, setCart } = useCart();
   const [totalAmount, setTotalAmount] = useState(0);
+  const router = useRouter();
 
   //Calculating the total price to show at checkout as soon as this component mounts
   useEffect(() => {
@@ -64,12 +66,16 @@ const Cart = () => {
                   <span className="font-semibold text-green-600">${totalAmount - totalAmount*0.1}</span>
                 </p>
               </div>
-              <Link
-                href="/Checkout"
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  router.push('/Checkout');
+                  setCart([]);
+                }}
                 className="select-none text-center bg-green-700 hover:bg-purple-50 rounded-lg text-white transition duration-300 ease-linear mt-5 border-2 border-green-600 font-bold hover:text-green-700 p-3 text-xl"
               >
                 Checkout Now
-              </Link>
+              </button>
             </div>
           </div>
         </div>

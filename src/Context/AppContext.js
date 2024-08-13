@@ -66,7 +66,8 @@ export function AppContextProvider({ children }) {
     cart,
     add,
     remove,
-    removeComplete
+    removeComplete,
+    setCart
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
