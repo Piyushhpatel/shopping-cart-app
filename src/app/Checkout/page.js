@@ -5,7 +5,7 @@ const Checkout = () => {
     <div className="flex items-start justify-center">
       <div className="transition-all duration-200 bg-white md:w-1/2 md:max-w-[1000px] rounded-md p-[30px] mx-auto  mt-20 flex flex-col gap-2 shadow-md" 
     >
-      <img src={'/checked.png'} className="w-[200px] select-none aspect-square mx-auto mb-10"/>
+      <img src={'/checked.png'} alt="checked" className="w-[200px] select-none aspect-square mx-auto mb-10"/>
       <h1 className="text-slate-900 text-2xl font-bold text-center mx-10">Thank You For Shopping With Us</h1>
       <Link
        href={'/'}

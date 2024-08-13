@@ -36,7 +36,7 @@ const CartItem = ({ id, image, title, description, price, quantity }) => {
     <div className="flex items-center p-2 md:p-5 justify-between border-b-2 border-slate-500  mt-2 mb-2 md:mx-5 ">
       <div className="flex flex-col md:flex-row p-0 md:p-3 gap-5 items-center">
         <div className="w-[40%] select-none">
-          <img src={image} />
+          <img src={image} alt={title} />
         </div>
         <div className="md:ml-10 self-start space-y-5 w-[100%] md:w-[70%]">
           <h1 className="text-xl text-slate-700 font-semibold">{title}</h1>

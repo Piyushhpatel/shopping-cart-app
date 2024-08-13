@@ -2,7 +2,7 @@
 
 import { useCart } from "@/Context/AppContext";
 import { Transition } from "@headlessui/react";
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useCallback, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 const Products = ({ id, title, description, price, images }) => {
@@ -11,9 +11,9 @@ const Products = ({ id, title, description, price, images }) => {
   const { cart, add, remove } = useCart();
 
   //Logic to change the image in pop up product at 3 sec interval
-  const changeIndex = () => {
+  const changeIndex = useCallback(() => {
     setIndex((prevIndex) => (prevIndex + 1) % images.length);
-  };
+  }, [images.length])
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -21,7 +21,7 @@ const Products = ({ id, title, description, price, images }) => {
     }, 2000);
 
     return () => clearInterval(interval);
-  }, [show]);
+  }, [show, changeIndex]);
 
   //function to add to cart
   const addToCart = (id) => {
@@ -51,7 +51,7 @@ const Products = ({ id, title, description, price, images }) => {
           </p>
         </div>
         <div onClick={() => setShow(true)} className="h-[180px]">
-          <img src={images[0]} className="w-full h-full select-none" />
+          <img src={images[0]} alt={title} className="w-full h-full select-none" />
         </div>
 
         <div className="flex items-center justify-between gap-16 w-full mt-5">
