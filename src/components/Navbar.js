@@ -2,11 +2,10 @@
 
 import { FaShoppingCart } from "react-icons/fa";
 import Link from "next/link";
-import { useContext } from "react";
-import { AppContext } from "@/Context/AppContext";
+import { useCart } from "@/Context/AppContext";
 
-const Navbar = ({ length }) => {
-  const { cart } = useContext(AppContext);
+const Navbar = () => {
+  const { cart } = useCart();
 
   return (
     <div className="sticky z-[100] h-20 inset-x-0 top-0 w-full bottom-b border-gray-200 bg-black backdrop-blur-lg transition-all">

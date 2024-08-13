@@ -1,28 +1,21 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useCart } from "@/Context/AppContext";
 import CartItem from "@/components/CartItem";
-import toast from "react-hot-toast";
 
 const Cart = () => {
-  const { cart, removeComplete } = useCart();
+  const { cart } = useCart();
   const [totalAmount, setTotalAmount] = useState(0);
 
+  //Calculating the total price to show at checkout as soon as this component mounts
   useEffect(() => {
     setTotalAmount(
       cart.reduce((acc, curr) => acc + (curr.item.price * curr.quantity), 0)
     );
   }, [cart]);
-  
 
-  const removeFromCart = (id) => {
-    removeComplete(id);
-    toast("Item Removed from Cart", {
-      icon: "😑",
-    });
-  };
   return (
     <div className="max-w-[1200px] mx-auto flex flex-col md:flex-row justify-center">
       {cart.length > 0 ? (
@@ -37,7 +30,6 @@ const Cart = () => {
                   title={cartItem.item.title}
                   description={cartItem.item.description}
                   price={cartItem.item.price}
-                  removeFromCart={removeFromCart}
                   quantity={cartItem.quantity}
                 />
               );

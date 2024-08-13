@@ -3,8 +3,11 @@
 import { data } from "@/data/data";
 import { createContext, useContext, useEffect, useState } from "react";
 
+
+//Creating App Context here
 export const AppContext = createContext();
 
+//Creating a Provider for the App Context
 export function AppContextProvider({ children }) {
   const [ProductList, setProductList] = useState([]);
   const [cart, setCart] = useState([]);
@@ -14,6 +17,8 @@ export function AppContextProvider({ children }) {
     setProductList(data);
   }, []);
 
+  /*Function to add the item to the cart it adds the item if it doesn't exist 
+   and add to quantity if item already exist */
   const add = (id) => {
     const itemInCart = cart.find((cartItem) => cartItem.item.id === id);
     if (itemInCart) {
@@ -30,6 +35,8 @@ export function AppContextProvider({ children }) {
     }
   };
 
+  /*Function to remove the item from the cart it reduce the quantity if quantity is more than 1 
+    and remove it from cart if quantity is 1 */
   const remove = (id) => {
     const itemInCart = cart.find((cartItem) => cartItem.item.id === id);
 
@@ -48,10 +55,12 @@ export function AppContextProvider({ children }) {
     }
   };
 
+  //Function to completly remove item from cart regardless of quantity
   const removeComplete = (id) => {
     setCart((prevCart) => prevCart.filter((cartItem) => cartItem.item.id !== id));
   }
 
+  //Values
   const value = {
     ProductList,
     cart,
@@ -63,6 +72,8 @@ export function AppContextProvider({ children }) {
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 }
 
+
+//Custom hook to reduce import statement
 export function useCart() {
   return useContext(AppContext);
 }

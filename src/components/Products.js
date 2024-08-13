@@ -1,22 +1,16 @@
 "use client";
-import { AppContext } from "@/Context/AppContext";
-import { Transition } from "@headlessui/react";
-import React, { Fragment, useContext, useEffect, useState } from "react";
 
-const Products = ({
-  id,
-  title,
-  description,
-  image,
-  price,
-  addToCart,
-  images,
-  removeFromCart,
-}) => {
+import { useCart } from "@/Context/AppContext";
+import { Transition } from "@headlessui/react";
+import { Fragment, useEffect, useState } from "react";
+import toast from "react-hot-toast";
+
+const Products = ({ id, title, description, price, images }) => {
   const [show, setShow] = useState(false);
   const [index, setIndex] = useState(0);
-  const { cart } = useContext(AppContext);
+  const { cart, add, remove } = useCart();
 
+  //Logic to change the image in pop up product at 3 sec interval
   const changeIndex = () => {
     setIndex((prevIndex) => (prevIndex + 1) % images.length);
   };
@@ -28,6 +22,20 @@ const Products = ({
 
     return () => clearInterval(interval);
   }, [show]);
+
+  //function to add to cart
+  const addToCart = (id) => {
+    add(id);
+    toast.success("Item Added to Cart");
+  };
+
+  //function to remove from cart
+  const removeFromCart = (id) => {
+    remove(id);
+    toast("Item Removed from Cart", {
+      icon: "😑",
+    });
+  };
 
   return (
     <>
@@ -69,6 +77,8 @@ const Products = ({
           </div>
         </div>
       </div>
+
+      {/* Transition model to have more description about product invoke when pressed on item */}
       <Transition
         as={Fragment}
         show={show}
